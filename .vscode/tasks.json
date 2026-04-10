@@ -1,0 +1,166 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Regenerate Prisma Client",
+			"type": "shell",
+			"command": "npx prisma generate"
+		},
+		{
+			"label": "Push Database Schema",
+			"type": "shell",
+			"command": "npx prisma db push"
+		},
+		{
+			"label": "Start Development Server",
+			"type": "shell",
+			"command": "npm run dev"
+		},
+		{
+			"label": "Kill Old Server",
+			"type": "shell",
+			"command": "taskkill /PID 3684 /F"
+		},
+		{
+			"label": "Start Development Server",
+			"type": "shell",
+			"command": "npm run dev"
+		},
+		{
+			"label": "Build Check",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Build Check After Fix",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Install Dependencies",
+			"type": "shell",
+			"command": "npm install"
+		},
+		{
+			"label": "Install with Legacy Peer Deps",
+			"type": "shell",
+			"command": "npm install --legacy-peer-deps"
+		},
+		{
+			"label": "Final Build Check",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Build After Import Fix",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Build After Prisma Fix",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Build After Suspense Fix",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Final Build Check",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Build After Import Fix",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Start Dev Server for Testing",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true
+		},
+		{
+			"label": "Kill Existing Server",
+			"type": "shell",
+			"command": "taskkill /PID 13904 /F"
+		},
+		{
+			"label": "Start Dev Server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true
+		},
+		{
+			"label": "Build Check After Register Fix",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Build Check Final",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Start Dev Server for Testing",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true
+		},
+		{
+			"label": "Kill Old Server",
+			"type": "shell",
+			"command": "taskkill /PID 3960 /F"
+		},
+		{
+			"label": "Kill Old Server",
+			"type": "shell",
+			"command": "taskkill /PID 3960 /F"
+		},
+		{
+			"label": "Kill Server",
+			"type": "shell",
+			"command": "taskkill /PID 3960 /F"
+		},
+		{
+			"label": "Start Dev Server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true
+		},
+		{
+			"label": "Build Check",
+			"type": "shell",
+			"command": "npm run build"
+		},
+		{
+			"label": "Start Dev Server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true
+		},
+		{
+			"label": "Kill Server",
+			"type": "shell",
+			"command": "taskkill /PID 10960 /F"
+		},
+		{
+			"label": "Kill Server",
+			"type": "shell",
+			"command": "taskkill /PID 10960 /F"
+		},
+		{
+			"label": "Kill Server Correct",
+			"type": "shell",
+			"command": "taskkill /PID 10960 /F"
+		},
+		{
+			"label": "Start Dev Server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true
+		}
+	]
+}
