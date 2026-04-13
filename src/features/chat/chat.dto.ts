@@ -17,7 +17,6 @@ export const SendMessageSchema = z.object({
   content: z.string().min(1, "Message content cannot be empty"),
 });
 
-// Infer types correctly for feature scaling
 export type CreateChatSessionDTO = z.infer<typeof CreateChatSessionSchema>;
 export type ChatIdDTO = z.infer<typeof ChatIdSchema>;
 export type SendMessageDTO = z.infer<typeof SendMessageSchema>;

@@ -7,7 +7,6 @@ export class AppError extends Error {
     super(message);
     this.statusCode = statusCode;
     this.isOperational = isOperational;
-    // Set prototype explicitly for built-in Error extensions in TS
     Object.setPrototypeOf(this, new.target.prototype);
     Error.captureStackTrace(this);
   }
@@ -31,16 +30,10 @@ export class NotFoundError extends AppError {
   }
 }
 
-/**
- * Standardized API response format for server actions.
- */
 export type ActionResponse<T = any> = 
   | { success: true; data: T }
   | { success: false; error: string; statusCode?: number };
 
-/**
- * Wrapper for Server Actions catching known and unknown errors.
- */
 export async function withErrorHandling<T>(
   action: () => Promise<T>
 ): Promise<ActionResponse<T>> {
@@ -54,7 +47,6 @@ export async function withErrorHandling<T>(
       return { success: false, error: error.message, statusCode: error.statusCode };
     }
     
-    // Zod Error formatting
     if (error?.name === "ZodError") {
       const messages = error.errors.map((e: any) => e.message).join(", ");
       return { success: false, error: messages, statusCode: 400 };

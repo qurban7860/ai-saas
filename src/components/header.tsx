@@ -16,8 +16,8 @@ export function Header() {
         
         <Link href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-muted border border-border">
-            {/* <Command className="w-5 h-5 text-foreground" /> */}
-            <Image src="/app-icon.svg" alt="App Icon" width={32} height={32} className="logo" />
+            {!session &&<Command className="w-5 h-5 text-foreground" />}
+            {session &&<Image src="/app-icon.svg" alt="App Icon" width={32} height={32} className="logo" />}
           </div>
           <span className="font-bold text-lg text-foreground line-clamp-1">AI SaaS</span>
         </Link>

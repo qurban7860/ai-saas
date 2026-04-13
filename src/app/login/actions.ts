@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
-import prisma from "@/lib/prisma";
 
 export async function loginWithCredentials(formData: FormData) {
   const email = formData.get("email") as string;
@@ -12,7 +11,6 @@ export async function loginWithCredentials(formData: FormData) {
     redirect("/login?error=missing-fields");
   }
 
-  // Basic email format validation
   if (!/\S+@\S+\.\S+/.test(email)) {
     redirect("/login?error=invalid-email");
   }

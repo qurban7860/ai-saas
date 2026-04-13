@@ -69,7 +69,6 @@ function RegisterContent() {
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] opacity-60 pointer-events-none" />
       <div className="absolute -bottom-32 -left-20 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-40 pointer-events-none" />
 
-      {/* CARD */}
       <div className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4">
         <div className="absolute inset-0 bg-card/80 backdrop-blur-2xl rounded-3xl border border-border shadow-xl" />
 
@@ -78,7 +77,6 @@ function RegisterContent() {
             <Command className="w-8 h-8 text-foreground" />
           </div>
 
-          {/* TITLE */}
           <h1 className="text-3xl font-semibold tracking-tight text-foreground mb-2">
             Create account
           </h1>
@@ -99,7 +97,6 @@ function RegisterContent() {
             </div>
           )}
 
-          {/* FORM */}
           <form onSubmit={handleSubmit} className="w-full space-y-4">
             
             <div className="space-y-2">
@@ -167,7 +164,6 @@ function RegisterContent() {
             </Button>
           </form>
 
-          {/* DIVIDER */}
           <div className="relative w-full my-8">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-border" />

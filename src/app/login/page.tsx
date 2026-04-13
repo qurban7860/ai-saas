@@ -59,24 +59,20 @@ function LoginContent() {
   return (
     <div className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background text-foreground pt-10 pb-10">
       
-      {/* THEME BACKGROUND */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted to-background" />
 
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] opacity-60 pointer-events-none" />
       <div className="absolute -bottom-32 -left-20 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-40 pointer-events-none" />
 
-      {/* CARD */}
       <div className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4">
         <div className="absolute inset-0 bg-card/80 backdrop-blur-2xl rounded-3xl border border-border shadow-xl" />
 
         <div className="relative flex flex-col items-center">
           
-          {/* ICON */}
           <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-muted border border-border mb-6">
             <Command className="w-8 h-8 text-foreground" />
           </div>
 
-          {/* TITLE */}
           <h1 className="text-3xl font-semibold tracking-tight text-foreground mb-2">
             Welcome back
           </h1>
@@ -85,21 +81,18 @@ function LoginContent() {
             Please sign in to your account to continue.
           </p>
 
-          {/* ERROR */}
           {error && (
             <div className="w-full p-4 mb-6 bg-destructive/10 border border-destructive/30 rounded-2xl text-destructive text-sm">
               {decodeURIComponent(error)}
             </div>
           )}
 
-          {/* SUCCESS */}
           {success && (
             <div className="w-full p-4 mb-6 bg-primary/10 border border-primary/30 rounded-2xl text-primary text-sm">
               {decodeURIComponent(success)}
             </div>
           )}
 
-          {/* FORM */}
           <form onSubmit={handleCredentialsLogin} className="w-full space-y-4">
             
             <div className="space-y-2">
@@ -139,7 +132,6 @@ function LoginContent() {
             </Button>
           </form>
 
-          {/* DIVIDER */}
           <div className="relative w-full my-8">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-border" />
@@ -151,7 +143,6 @@ function LoginContent() {
             </div>
           </div>
 
-          {/* GOOGLE BUTTON */}
           <Button
             onClick={handleGoogleLogin}
             disabled={isLoading}

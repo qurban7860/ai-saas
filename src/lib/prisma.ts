@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
-  // Prevent Prisma from initializing in non-Node environments (like the browser or Edge)
   if (typeof window !== "undefined" || process.env.NEXT_RUNTIME === "edge") {
     return null as unknown as PrismaClient;
   }

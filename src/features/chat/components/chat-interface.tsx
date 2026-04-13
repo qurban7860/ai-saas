@@ -62,7 +62,6 @@ export function ChatInterface({
         </p>
       </div>
 
-      {/* 🔥 Messages */}
       <ScrollArea className="flex-1 px-4 py-6">
         <div className="max-w-3xl mx-auto flex flex-col gap-6">
           

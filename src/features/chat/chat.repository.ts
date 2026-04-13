@@ -47,7 +47,6 @@ export const ChatRepository = {
   },
 
   async getMessagesBySession(sessionId: string, userId: string) {
-    // Validate ownership before grabbing messages
     const session = await prisma.chatSession.findFirst({
       where: { id: sessionId, userId },
     });
