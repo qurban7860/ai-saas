@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
-
-/**
- * Prisma Adapter cannot run directly on the Edge runtime.
- * For middleware protection, we invoke a lightweight setup of NextAuth
- * purely for session token verification.
- */
 import Google from "next-auth/providers/google";
+
+const authSecret =
+  process.env.AUTH_SECRET ??
+  process.env.NEXTAUTH_SECRET ??
+  process.env.SECRET ??
+  (process.env.NODE_ENV !== "production" ? "dev-secret" : undefined);
 
 const { auth } = NextAuth({
   providers: [
@@ -14,6 +14,7 @@ const { auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  secret: authSecret,
   session: { strategy: "jwt" },
 });
 
@@ -29,7 +30,7 @@ export default auth((req) => {
   }
 
   if (isLoggedIn && isAuthRoute) {
-    return Response.redirect(new URL("/", req.nextUrl));
+    return Response.redirect(new URL("/chat", req.nextUrl));
   }
 });
 

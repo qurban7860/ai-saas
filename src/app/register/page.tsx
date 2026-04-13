@@ -1,7 +1,6 @@
  "use client";
 
 import { registerUser } from "./actions";
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,17 +39,7 @@ function RegisterContent() {
       if (result.error) {
         router.push(`/register?error=${encodeURIComponent(result.error)}`);
       } else {
-        // Registration successful, now sign in
-        const signInResult = await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        });
-        if (signInResult?.error) {
-          router.push(`/register?error=${encodeURIComponent("Account created but sign in failed: " + signInResult.error)}`);
-        } else {
-          router.push("/");
-        }
+        router.push("/login?success=Account created successfully. Please sign in.");
       }
     } catch (error) {
       console.error("Registration error:", error);

@@ -2,6 +2,7 @@
 import { streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { ChatRepository } from "./chat.repository";
+import { env } from "@/lib/env";
 
 export const ChatService = {
   /**
@@ -29,9 +30,16 @@ export const ChatService = {
       content: msg.content,
     }));
 
-    // 4. Create the streaming text response using the provider (abstracting implementation)
+    // 4. Ensure the OpenAI key is available and create the streaming text response.
+    if (!env.GEMINI_API_KEY) {
+      throw new Error(
+        "OpenAI API key is missing. Set GEMINI_API_KEY in your environment variables to enable chat responses."
+      );
+    }
+
     const result = streamText({
       model: openai("gpt-4o"),
+
       system: "You are a helpful and intelligent AI assistant. Provide concise and highly accurate answers.",
       messages,
       async onFinish({ text }) {

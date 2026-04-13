@@ -15,7 +15,7 @@ interface ChatInterfaceProps {
   userName?: string | null;
   userImage?: string | null;
 }
-
+ 
 export function ChatInterface({
   sessionId,
   initialMessages,
@@ -38,10 +38,11 @@ export function ChatInterface({
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full bg-background border rounded-xl overflow-hidden shadow-sm">
+    <div className="flex flex-col h-full glass-card rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_32px_80px_-32px_rgba(15,23,42,0.65)]">
       {/* Header */}
-      <div className="p-4 border-b bg-card">
-        <h2 className="font-semibold text-card-foreground">Chat Assistant</h2>
+      <div className="p-5 border-b border-white/10 bg-[var(--surface)]/80 backdrop-blur-xl">
+        <h2 className="font-semibold text-card-foreground text-lg md:text-xl">AI Conversation</h2>
+        <p className="text-sm text-muted-foreground mt-1">Ask anything and get intelligent, contextual answers.</p>
       </div>
 
       {/* Message Area */}
@@ -55,11 +56,9 @@ export function ChatInterface({
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`flex gap-3 ${
-                m.role === "user" ? "flex-row-reverse" : "flex-row"
-              }`}
+              className={`flex gap-3 ${m.role === "user" ? "flex-row-reverse" : "flex-row"} items-end`}
             >
-              <Avatar className="w-8 h-8">
+              <Avatar className="w-10 h-10 shrink-0">
                 {m.role === "user" ? (
                   <>
                     <AvatarImage src={userImage || ""} />
@@ -75,10 +74,10 @@ export function ChatInterface({
                 )}
               </Avatar>
               <div
-                className={`px-4 py-2 rounded-2xl max-w-[80%] ${
+                className={`px-4 py-3 rounded-[1.5rem] max-w-[80%] shadow-[0_18px_60px_-40px_rgba(15,23,42,0.55)] ${
                   m.role === "user"
-                    ? "bg-primary text-primary-foreground rounded-tr-sm"
-                    : "bg-muted text-foreground rounded-tl-sm"
+                    ? "bg-primary text-primary-foreground rounded-tr-[0.85rem] rounded-bl-[0.85rem]"
+                    : "bg-[var(--surface)] text-card-foreground rounded-tl-[0.85rem] rounded-br-[0.85rem] border border-white/10"
                 }`}
               >
                 {m.content}
@@ -86,14 +85,15 @@ export function ChatInterface({
             </div>
           ))}
           {isLoading && (
-            <div className="flex gap-3">
-               <Avatar className="w-8 h-8">
+            <div className="flex gap-3 items-end">
+               <Avatar className="w-10 h-10 shrink-0">
                   <AvatarFallback className="bg-primary text-primary-foreground">
                     AI
                   </AvatarFallback>
               </Avatar>
-              <div className="flex items-center px-4 py-2 bg-muted text-foreground rounded-2xl rounded-tl-sm">
-                <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+              <div className="flex items-center gap-2 px-4 py-3 bg-[var(--surface)] text-card-foreground rounded-[1.5rem] border border-white/10 shadow-[0_12px_40px_-20px_rgba(15,23,42,0.45)]">
+                <Loader2 className="w-4 h-4 animate-spin text-primary-foreground" />
+                <span className="text-sm text-muted-foreground">AI is typing...</span>
               </div>
             </div>
           )}
@@ -102,26 +102,26 @@ export function ChatInterface({
       </ScrollArea>
 
       {/* Input Area */}
-      <div className="p-4 bg-card border-t">
+      <div className="p-4 bg-[var(--surface)]/90 border-t border-white/10 backdrop-blur-xl">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             if (!input.trim()) return;
             handleSubmit(e);
           }}
-          className="flex items-center gap-2"
+          className="flex flex-col gap-3 sm:flex-row items-center"
         >
           <Input
             value={input}
             onChange={handleInputChange}
             placeholder="Type your message..."
-            className="flex-1 rounded-full bg-background"
+            className="flex-1 rounded-full bg-background/90 border border-white/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]"
             disabled={isLoading}
           />
           <Button
             type="submit"
             size="icon"
-            className="rounded-full shadow-md transition-transform active:scale-95"
+            className="rounded-full shadow-[0_18px_40px_-20px_rgba(15,23,42,0.55)] transition-transform active:scale-95"
             disabled={isLoading || !input.trim()}
           >
             <SendHorizontal className="w-4 h-4" />

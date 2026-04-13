@@ -21,7 +21,7 @@ export async function loginWithCredentials(formData: FormData) {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/",
+      callbackUrl: "/",
     });
   } catch (error) {
     if (error instanceof Error && error.message === "NEXT_REDIRECT") throw error;
@@ -32,7 +32,7 @@ export async function loginWithCredentials(formData: FormData) {
 
 export async function loginWithGoogle() {
   try {
-    await signIn("google", { redirectTo: "/" });
+    await signIn("google", { callbackUrl: "/" });
   } catch (error) {
     if (error instanceof Error && error.message === "NEXT_REDIRECT") throw error;
     console.error("Google login error:", error);

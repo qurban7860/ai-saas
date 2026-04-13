@@ -5,6 +5,12 @@ import prisma from "@/lib/prisma";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
+const authSecret =
+  process.env.AUTH_SECRET ??
+  process.env.NEXTAUTH_SECRET ??
+  process.env.SECRET ??
+  (process.env.NODE_ENV !== "production" ? "dev-secret" : undefined);
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -37,6 +43,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  secret: authSecret,
+  pages: {
+    signIn: "/login",
+  },
   session: {
     strategy: "jwt",
   },

@@ -7,16 +7,20 @@ import { Label } from "@/components/ui/label";
 import { Command } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState, Suspense } from "react";
+import { useState, Suspense, type FormEvent } from "react";
 
 function LoginContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const error = searchParams.get("error");
+  const success = searchParams.get("success");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleCredentialsLogin = async (formData: FormData) => {
+  const handleCredentialsLogin = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsLoading(true);
+
+    const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
@@ -30,7 +34,7 @@ function LoginContent() {
       if (result?.error) {
         router.push(`/login?error=${encodeURIComponent(result.error)}`);
       } else {
-        router.push("/");
+        router.push("/chat");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -43,7 +47,7 @@ function LoginContent() {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
-      await signIn("google", { callbackUrl: "/" });
+      await signIn("google", { callbackUrl: "/chat" });
     } catch (error) {
       console.error("Google login error:", error);
       router.push("/login?error=google-failed");
@@ -81,7 +85,13 @@ function LoginContent() {
             </div>
           )}
 
-          <form action={handleCredentialsLogin} className="w-full space-y-4">
+          {success && (
+            <div className="w-full p-4 mb-6 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm">
+              {decodeURIComponent(success)}
+            </div>
+          )}
+
+          <form onSubmit={handleCredentialsLogin} className="w-full space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-zinc-300">
                 Email
