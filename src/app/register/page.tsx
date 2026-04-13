@@ -161,7 +161,7 @@ function RegisterContent() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 rounded-xl font-semibold"
+              className="w-full h-11 rounded-xl font-semibold cursor-pointer"
             >
               {isLoading ? "Creating Account..." : "Create Account"}
             </Button>

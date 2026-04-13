@@ -13,14 +13,14 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
+    <div className="flex h-screen text-foreground overflow-hidden">
 
       <div className="fixed top-4 left-4 z-50 lg:hidden">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="hover:bg-accent text-muted-foreground"
+          className="hover:bg-accent text-muted-foreground cursor-pointer"
         >
           {sidebarOpen ? <X /> : <Menu />}
         </Button>
@@ -43,7 +43,7 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
 
           <Button
             size="sm"
-            className="w-full"
+            className="w-full cursor-pointer"
             onClick={() => setSidebarOpen(false)}
           >
             <Plus className="w-4 h-4 mr-2" />

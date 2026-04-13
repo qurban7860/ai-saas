@@ -124,6 +124,7 @@ function LoginContent() {
                 id="password"
                 name="password"
                 type="password"
+                placeholder="Your password"
                 className="h-11 bg-background/50 border-border text-foreground focus-visible:ring-ring"
                 required
               />
@@ -132,7 +133,7 @@ function LoginContent() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-11 rounded-xl font-semibold"
+              className="w-full h-11 rounded-xl font-semibold cursor-pointer"
             >
               {isLoading ? "Signing In..." : "Sign In"}
             </Button>
@@ -156,7 +157,7 @@ function LoginContent() {
             disabled={isLoading}
             size="lg"
             variant="outline"
-            className="w-full h-12 rounded-xl font-semibold flex items-center justify-center gap-3"
+            className="w-full h-12 rounded-xl font-semibold flex items-center justify-center gap-3 cursor-pointer"
           >
             <svg viewBox="0 0 24 24" className="w-5 h-5">
               <path

@@ -111,12 +111,11 @@ export function ChatInterface({
                     </ReactMarkdown>
                   </div>
 
-                  {/* 🔥 Actions (hover) */}
                   {!isUser && (
                     <div className="opacity-0 group-hover:opacity-100 transition flex items-center gap-2 mt-2 ml-1">
                       <button
                         onClick={() => handleCopy(m.id, m.content)}
-                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1"
+                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1 cursor-pointer"
                       >
                         <Copy className="w-3 h-3" />
                         {copiedId === m.id ? "Copied" : "Copy"}
@@ -124,7 +123,7 @@ export function ChatInterface({
 
                       <button
                         onClick={() => reload()}
-                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1"
+                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1 cursor-pointer"
                       >
                         <RefreshCcw className="w-3 h-3" />
                         Regenerate
@@ -191,7 +190,7 @@ export function ChatInterface({
             type="submit"
             size="icon"
             disabled={isLoading || !input.trim()}
-            className="rounded-full h-11 w-11"
+            className="rounded-full h-11 w-11 cursor-pointer"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />

@@ -12,7 +12,7 @@ export function ThemeSwitcher() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="text-muted-foreground hover:text-foreground hover:bg-accent"
+      className="text-muted-foreground hover:text-foreground hover:bg-accent cursor-pointer"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (

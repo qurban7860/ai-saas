@@ -48,7 +48,7 @@ export function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={() => signOut({ callbackUrl: "/login" })}
-                className="text-muted-foreground hover:text-foreground hover:bg-accent"
+                className="text-muted-foreground hover:text-foreground hover:bg-accent cursor-pointer"
               >
                 Sign Out
               </Button>
@@ -56,12 +56,12 @@ export function Header() {
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm">
-                <Link href="/login" className="text-muted-foreground hover:text-foreground">
+                <Link href="/login" className="text-muted-foreground hover:text-foreground cursor-pointer">
                   Sign In
                 </Link>
               </Button>
 
-              <Button size="sm">
+              <Button size="sm" className="rounded-full cursor-pointer">
                 <Link href="/register">Get Started</Link>
               </Button>
             </div>
