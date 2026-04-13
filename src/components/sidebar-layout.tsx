@@ -10,66 +10,66 @@ interface SidebarLayoutProps {
 }
 
 export function SidebarLayout({ children }: SidebarLayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-screen text-foreground overflow-hidden">
-      {/* Mobile backdrop */}
-      {sidebarOpen && (
+    <div className="h-screen w-full overflow-hidden bg-background text-foreground">
+
+      {open && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
         />
       )}
 
-      {/* Mobile toggle button */}
-      <div className="fixed top-4 left-4 z-50 lg:hidden">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="hover:bg-accent text-muted-foreground cursor-pointer bg-background/80 backdrop-blur-sm border border-border"
+      <Header />
+
+      <div className="h-[calc(100vh-4rem)] flex">
+
+        <aside
+          className={`
+            fixed lg:static z-50
+            h-full w-[280px]
+            bg-sidebar border-r border-border
+            transition-transform duration-300 ease-out
+            ${open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          `}
         >
-          {sidebarOpen ? <X /> : <Menu />}
-        </Button>
-      </div>
+          <div className="h-full flex flex-col">
 
-      <aside
-        className={`
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-          fixed lg:relative top-0 left-0 z-40
-          w-72 h-full
-          bg-sidebar border-r border-border
-          transition-transform duration-200 ease-in-out
-          flex flex-col
-          shadow-2xl lg:shadow-none
-        `}
-      >
-        <div className="p-5">
-          <h2 className="text-sm font-semibold text-card-foreground mb-4">
-            Conversations
-          </h2>
+            <div className="p-4 border-b border-border">
+              <h2 className="text-sm font-semibold mb-3">
+                Conversations
+              </h2>
 
-          <Button
-            size="sm"
-            className="w-full cursor-pointer"
-            onClick={() => setSidebarOpen(false)}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            New Chat
-          </Button>
-        </div>
+              <Button className="w-full" size="sm">
+                <Plus className="w-4 h-4 mr-2" />
+                New Chat
+              </Button>
+            </div>
 
-        <div className="px-5 py-4 text-muted-foreground text-sm">
-          No conversations yet.
-        </div>
-      </aside>
+            <div className="p-4 text-sm text-muted-foreground">
+              No conversations yet
+            </div>
+          </div>
+        </aside>
 
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header />
+        <main className="flex-1 min-w-0 h-full overflow-hidden flex flex-col">
 
-        <main className="flex-1 overflow-hidden">
-          {children}
+          <div className="lg:hidden p-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setOpen(true)}
+              className="cursor-pointer"
+            >
+              <Menu className="w-5 h-5" />
+            </Button>
+          </div>
+
+          <div className="flex-1 overflow-hidden">
+            {children}
+          </div>
         </main>
       </div>
     </div>
