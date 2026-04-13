@@ -126,20 +126,16 @@
 @layer utilities {
   .glass-card {
     background-color: var(--card);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
     backdrop-filter: blur(24px);
-    box-shadow: 0 40px 120px -60px rgba(15, 23, 42, 0.7);
+    box-shadow: 0 40px 120px -60px oklch(0 0 0 / 0.5);
   }
 
   .glass-panel {
     background-color: var(--surface);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
     backdrop-filter: blur(28px);
-    box-shadow: 0 24px 96px -48px rgba(15, 23, 42, 0.55);
-  }
-
-  .text-glow {
-    text-shadow: 0 0 32px rgba(255,255,255,0.08);
+    box-shadow: 0 24px 96px -48px oklch(0 0 0 / 0.4);
   }
 }
 
@@ -151,11 +147,10 @@
     @apply font-sans antialiased bg-background text-foreground transition-colors duration-300;
   }
   body {
-    @apply min-h-screen bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at top left, rgba(139, 92, 246, 0.22), transparent 24%),
-      radial-gradient(circle at top right, rgba(34, 211, 238, 0.14), transparent 20%),
-      radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.12), transparent 18%),
-      radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.08), transparent 26%);
+  @apply min-h-screen bg-background text-foreground;
+
+  background-image:
+    radial-gradient(circle at top left, oklch(0.7 0.2 260 / 0.2), transparent 24%),
+    radial-gradient(circle at top right, oklch(0.7 0.2 200 / 0.15), transparent 20%);
   }
 }

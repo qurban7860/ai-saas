@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthGuard } from "@/components/auth-guard";
-import { DashboardLayout } from "@/components/dashboard-layout";
+import { SidebarLayout } from "@/components/sidebar-layout";
 import { ChatInterface } from "@/features/chat/components/chat-interface";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
@@ -31,33 +31,31 @@ export default function ChatPage() {
 
   return (
     <AuthGuard>
-      <DashboardLayout>
-        <div className="w-full h-full flex flex-col px-4 py-6 lg:px-8 lg:py-8">
-          {loading ? (
-            <div className="flex-1 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-10 h-10 bg-primary rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-zinc-400">Starting chat session...</p>
-              </div>
-            </div>
-          ) : sessionId ? (
-            <div className="mx-auto w-full max-w-6xl flex-1">
-              <ChatInterface
-                sessionId={sessionId}
-                initialMessages={[]}
-                userName={session?.user?.name}
-                userImage={session?.user?.image}
-              />
-            </div>
-          ) : (
-            <div className="flex-1 flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-zinc-400">Failed to start chat session</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </DashboardLayout>
+      <SidebarLayout>
+        <div className="flex-1 flex flex-col px-4 py-4 lg:px-8 lg:py-6 h-full">
+  {loading ? (
+    <div className="flex-1 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3 text-muted-foreground">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm">Starting chat session...</p>
+      </div>
+    </div>
+  ) : sessionId ? (
+    <div className="w-full h-full flex flex-col">
+      <ChatInterface
+        sessionId={sessionId}
+        initialMessages={[]}
+        userName={session?.user?.name}
+        userImage={session?.user?.image}
+      />
+    </div>
+  ) : (
+    <div className="flex-1 flex items-center justify-center text-muted-foreground">
+      Failed to start chat session
+    </div>
+  )}
+</div>
+      </SidebarLayout>
     </AuthGuard>
   );
 }

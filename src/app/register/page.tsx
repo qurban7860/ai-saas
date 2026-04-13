@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { registerUser } from "./actions";
 import { Button } from "@/components/ui/button";
@@ -18,9 +18,10 @@ function RegisterContent() {
 
   const handleRegister = async (formData: FormData) => {
     setIsLoading(true);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
+
+    const email = formData.get("email")?.toString() || "";
+    const password = formData.get("password")?.toString() || "";
+    const confirmPassword = formData.get("confirmPassword")?.toString() || "";
 
     if (!email || !password || !confirmPassword) {
       router.push("/register?error=Missing required fields");
@@ -36,8 +37,13 @@ function RegisterContent() {
 
     try {
       const result = await registerUser(formData);
-      if (result.error) {
-        router.push(`/register?error=${encodeURIComponent(result.error)}`);
+
+      if (!result || result.error) {
+        router.push(
+          `/register?error=${encodeURIComponent(
+            result?.error || "Registration failed"
+          )}`
+        );
       } else {
         router.push("/login?success=Account created successfully. Please sign in.");
       }
@@ -56,25 +62,28 @@ function RegisterContent() {
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-zinc-950 font-sans pt-10 pb-10">
-      {/* Animated Background Gradients */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-zinc-950" />
-      <div className="absolute top-1/4 -right-20 w-96 h-96 bg-emerald-500/20 rounded-full blur-[128px] opacity-60 mix-blend-screen pointer-events-none" />
-      <div className="absolute -bottom-32 -left-20 w-[600px] h-[600px] bg-emerald-400/10 rounded-full blur-[128px] opacity-40 mix-blend-screen pointer-events-none" />
+    <div className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background text-foreground pt-10 pb-10">
+      
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted to-background" />
 
-      {/* Glassmorphism Register Card */}
+      <div className="absolute top-1/4 -right-20 w-96 h-96 bg-primary/20 rounded-full blur-[120px] opacity-60 pointer-events-none" />
+      <div className="absolute -bottom-32 -left-20 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-40 pointer-events-none" />
+
+      {/* CARD */}
       <div className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4">
-        <div className="absolute inset-0 bg-zinc-900/40 backdrop-blur-2xl rounded-3xl border border-zinc-800/60 shadow-2xl" />
+        <div className="absolute inset-0 bg-card/80 backdrop-blur-2xl rounded-3xl border border-border shadow-xl" />
 
         <div className="relative flex flex-col items-center">
-          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-zinc-800/80 border border-zinc-700/50 shadow-inner mb-6">
-            <Command className="w-8 h-8 text-zinc-100" />
+          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-muted border border-border mb-6">
+            <Command className="w-8 h-8 text-foreground" />
           </div>
 
-          <h1 className="text-3xl font-semibold tracking-tight text-white mb-2">
+          {/* TITLE */}
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground mb-2">
             Create account
           </h1>
-          <p className="text-sm text-zinc-400 text-center mb-8">
+
+          <p className="text-sm text-muted-foreground text-center mb-8">
             Sign up to get started with our AI platform.
           </p>
 
@@ -85,14 +94,16 @@ function RegisterContent() {
           )}
 
           {success && (
-            <div className="w-full p-4 mb-6 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400 text-sm">
+            <div className="w-full p-4 mb-6 bg-primary/10 border border-primary/30 rounded-2xl text-primary text-sm">
               Account created! Redirecting...
             </div>
           )}
 
+          {/* FORM */}
           <form onSubmit={handleSubmit} className="w-full space-y-4">
+            
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-zinc-300">
+              <Label htmlFor="name" className="text-muted-foreground">
                 Full Name
               </Label>
               <Input
@@ -100,13 +111,13 @@ function RegisterContent() {
                 name="name"
                 type="text"
                 placeholder="John Doe"
-                className="bg-zinc-950/50 border-zinc-800 focus-visible:ring-emerald-500/50 text-white h-11"
+                className="h-11 bg-background/50 border-border text-foreground focus-visible:ring-ring"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-zinc-300">
+              <Label htmlFor="email" className="text-muted-foreground">
                 Email
               </Label>
               <Input
@@ -114,27 +125,27 @@ function RegisterContent() {
                 name="email"
                 type="email"
                 placeholder="name@example.com"
-                className="bg-zinc-950/50 border-zinc-800 focus-visible:ring-emerald-500/50 text-white h-11"
+                className="h-11 bg-background/50 border-border text-foreground focus-visible:ring-ring"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-zinc-300">
+              <Label htmlFor="password" className="text-muted-foreground">
                 Password
               </Label>
               <Input
                 id="password"
                 name="password"
                 type="password"
-                placeholder="At least 8 chars: uppercase, lowercase, number, special"
-                className="bg-zinc-950/50 border-zinc-800 focus-visible:ring-emerald-500/50 text-white h-11"
+                placeholder="Strong password"
+                className="h-11 bg-background/50 border-border text-foreground focus-visible:ring-ring"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-zinc-300">
+              <Label htmlFor="confirmPassword" className="text-muted-foreground">
                 Confirm Password
               </Label>
               <Input
@@ -142,22 +153,27 @@ function RegisterContent() {
                 name="confirmPassword"
                 type="password"
                 placeholder="Confirm your password"
-                className="bg-zinc-950/50 border-zinc-800 focus-visible:ring-emerald-500/50 text-white h-11"
+                className="h-11 bg-background/50 border-border text-foreground focus-visible:ring-ring"
                 required
               />
             </div>
 
-            <Button type="submit" disabled={isLoading} className="w-full bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl h-11 font-semibold transition-all">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-11 rounded-xl font-semibold"
+            >
               {isLoading ? "Creating Account..." : "Create Account"}
             </Button>
           </form>
 
+          {/* DIVIDER */}
           <div className="relative w-full my-8">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-zinc-800" />
+              <span className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-zinc-900/50 backdrop-blur-xl px-2 text-zinc-500">
+              <span className="bg-card px-2 text-muted-foreground">
                 Already have an account?
               </span>
             </div>
@@ -165,18 +181,18 @@ function RegisterContent() {
 
           <Link
             href="/login"
-            className="inline-flex w-full h-12 items-center justify-center rounded-xl border border-zinc-700 bg-zinc-950/80 text-zinc-300 font-medium transition hover:border-zinc-600 hover:bg-zinc-900/50"
+            className="inline-flex w-full h-12 items-center justify-center rounded-xl border border-border bg-background text-muted-foreground font-medium transition hover:bg-accent hover:text-foreground"
           >
             Sign In
           </Link>
 
-          <p className="mt-8 text-[13px] text-zinc-500 text-center px-4">
+          <p className="mt-8 text-[13px] text-muted-foreground text-center px-4">
             By signing up, you agree to our{" "}
-            <a href="#" className="underline underline-offset-4 hover:text-zinc-300 transition-colors">
+            <a href="#" className="underline underline-offset-4 hover:text-foreground transition-colors">
               Terms of Service
             </a>{" "}
             and{" "}
-            <a href="#" className="underline underline-offset-4 hover:text-zinc-300 transition-colors">
+            <a href="#" className="underline underline-offset-4 hover:text-foreground transition-colors">
               Privacy Policy
             </a>.
           </p>
@@ -188,7 +204,13 @@ function RegisterContent() {
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-screen text-muted-foreground">
+          Loading...
+        </div>
+      }
+    >
       <RegisterContent />
     </Suspense>
   );
