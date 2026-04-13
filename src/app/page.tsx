@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Sparkles, Brain, Zap, Shield, MessageSquare, Folder, Users, Settings } from "lucide-react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Header } from "@/components/header";
 
@@ -83,7 +84,8 @@ function LandingPageContent({ session, status }: LandingPageContentProps) {
 
           <div className="relative z-10 container mx-auto flex flex-col items-center gap-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkles className="w-8 h-8 text-primary" />
+              {/* <Sparkles className="w-8 h-8 text-primary" /> */}
+              <Image src="/app-icon.svg" alt="App Icon" width={64} height={64} className="logo" />
               <span className="font-bold text-2xl tracking-tight text-foreground">
                 AI SaaS
               </span>

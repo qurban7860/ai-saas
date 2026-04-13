@@ -139,6 +139,10 @@
   }
 }
 
+.logo:hover svg {
+  animation-play-state: paused;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

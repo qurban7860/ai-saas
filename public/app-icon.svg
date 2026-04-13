@@ -1,0 +1,68 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <defs>
+    
+    <!-- Animated gradient -->
+    <linearGradient id="grad" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#8B5CF6">
+        <animate attributeName="stop-color" values="#8B5CF6;#22D3EE;#6366F1;#8B5CF6" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#22D3EE">
+        <animate attributeName="stop-color" values="#22D3EE;#6366F1;#8B5CF6;#22D3EE" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#6366F1">
+        <animate attributeName="stop-color" values="#6366F1;#8B5CF6;#22D3EE;#6366F1" dur="6s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Glow -->
+    <radialGradient id="glow">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+
+    <!-- Shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+
+  </defs>
+
+  <!-- Soft glow background -->
+  <circle cx="256" cy="256" r="200" fill="url(#glow)" opacity="0.25">
+    <animate attributeName="r" values="180;210;180" dur="4s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Rotating group -->
+  <g>
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      values="0 256 256;360 256 256"
+      dur="18s"
+      repeatCount="indefinite"
+    />
+
+    <!-- Main sparkle -->
+    <path d="M256 110 L300 220 L410 256 L300 292 L256 402 L212 292 L102 256 L212 220 Z"
+          fill="url(#grad)"
+          filter="url(#shadow)"/>
+
+    <!-- Inner sparkle -->
+    <path d="M256 170 L285 240 L352 256 L285 272 L256 342 L227 272 L160 256 L227 240 Z"
+          fill="rgba(255,255,255,0.35)">
+      
+      <!-- Pulse animation -->
+      <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- Center core -->
+    <circle cx="256" cy="256" r="14" fill="#ffffff">
+      <animate attributeName="r" values="12;18;12" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+
+  </g>
+
+</svg>
