@@ -14,13 +14,21 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
 
   return (
     <div className="flex h-screen text-foreground overflow-hidden">
+      {/* Mobile backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
+      {/* Mobile toggle button */}
       <div className="fixed top-4 left-4 z-50 lg:hidden">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="hover:bg-accent text-muted-foreground cursor-pointer"
+          className="hover:bg-accent text-muted-foreground cursor-pointer bg-background/80 backdrop-blur-sm border border-border"
         >
           {sidebarOpen ? <X /> : <Menu />}
         </Button>
@@ -32,8 +40,9 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
           fixed lg:relative top-0 left-0 z-40
           w-72 h-full
           bg-sidebar border-r border-border
-          transition-transform duration-300
+          transition-transform duration-200 ease-in-out
           flex flex-col
+          shadow-2xl lg:shadow-none
         `}
       >
         <div className="p-5">

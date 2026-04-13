@@ -17,7 +17,7 @@ export function Header() {
           <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-muted border border-border">
             <Command className="w-5 h-5 text-foreground" />
           </div>
-          <span className="font-bold text-lg text-foreground">AI SaaS</span>
+          <span className="font-bold text-lg text-foreground line-clamp-1">AI SaaS</span>
         </Link>
 
         {/* Nav */}
