@@ -24,7 +24,6 @@ export class ChatRepository {
     });
   }
 
-  // OPTIMIZED: Eliminated N+1 query by utilizing Prisma's built-in _count relation.
   static async getSessionsWithPreview(userId: string) {
     const sessions = await prisma.chatSession.findMany({
       where: { userId },

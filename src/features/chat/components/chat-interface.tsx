@@ -69,7 +69,6 @@ export function ChatInterface({
   const [showQuotaWarning, setShowQuotaWarning] = useState(false);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
-  // Smart Auto-Scrolling Logic
   useEffect(() => {
     if (isAutoScrolling) {
       bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -112,7 +111,7 @@ export function ChatInterface({
       setTimeout(() => setShowQuotaWarning(false), 3000);
     }
 
-    setIsAutoScrolling(true); // Re-enable auto-scroll on new message
+    setIsAutoScrolling(true); 
 
     originalHandleSubmit(e, {
       data: { chatMode: selectedMode },
