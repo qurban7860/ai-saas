@@ -5,8 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { SendHorizontal, Loader2, Copy, RefreshCcw } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import {
+  SendHorizontal,
+  Loader2,
+  Copy,
+  RefreshCcw,
+  AlertCircle,
+  Zap,
+  Brain,
+  BookOpen,
+  Lightbulb,
+} from "lucide-react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import type { Message } from "@ai-sdk/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -18,6 +28,42 @@ interface ChatInterfaceProps {
   userImage?: string | null;
 }
 
+type ChatMode = "DEFAULT" | "PROFESSIONAL" | "CREATIVE" | "TECHNICAL" | "TEACHING";
+
+interface ChatModeConfig {
+  icon: React.ReactNode;
+  label: string;
+  description: string;
+  value: ChatMode;
+}
+
+const CHAT_MODES: ChatModeConfig[] = [
+  {
+    icon: <Zap className="w-4 h-4" />,
+    label: "Fast",
+    description: "Quick responses",
+    value: "DEFAULT",
+  },
+  {
+    icon: <Brain className="w-4 h-4" />,
+    label: "Professional",
+    description: "Formal tone",
+    value: "PROFESSIONAL",
+  },
+  {
+    icon: <Lightbulb className="w-4 h-4" />,
+    label: "Creative",
+    description: "Imaginative",
+    value: "CREATIVE",
+  },
+  {
+    icon: <BookOpen className="w-4 h-4" />,
+    label: "Technical",
+    description: "Detailed",
+    value: "TECHNICAL",
+  },
+];
+
 export function ChatInterface({
   sessionId,
   initialMessages,
@@ -28,55 +74,184 @@ export function ChatInterface({
     messages,
     input,
     handleInputChange,
-    handleSubmit,
+    handleSubmit: originalHandleSubmit,
     isLoading,
     reload,
+    error,
+    setMessages,
   } = useChat({
     api: "/api/chat",
-    body: { sessionId },
+    streamProtocol: "text",
+    body: { sessionId, chatMode: "DEFAULT" },
     initialMessages,
+    onError: (err) => {
+      console.error("Chat error:", err);
+    },
   });
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedMode, setSelectedMode] = useState<ChatMode>("DEFAULT");
+  const [showModeSelector, setShowModeSelector] = useState(false);
+  const [charCount, setCharCount] = useState(0);
+  const [isDemo, setIsDemo] = useState(false);
+  const [rateLimitRemaining, setRateLimitRemaining] = useState<number | null>(null);
+  const [showQuotaWarning, setShowQuotaWarning] = useState(false);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isLoading]);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.content.includes("**(This is a demo response")) {
+        setIsDemo(true);
+      }
+    }
   }, [messages]);
 
-  const handleCopy = (id: string, content: string) => {
-    navigator.clipboard.writeText(content);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 1500);
+  const handleInputChangeWithCount = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleInputChange(e);
+      setCharCount(e.target.value.length);
+    },
+    [handleInputChange]
+  );
+
+  const handleCopy = async (id: string, content: string) => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    if (
+      rateLimitRemaining !== null &&
+      rateLimitRemaining <= 5 &&
+      rateLimitRemaining > 0
+    ) {
+      setShowQuotaWarning(true);
+      setTimeout(() => setShowQuotaWarning(false), 3000);
+    }
+
+    originalHandleSubmit(e, {
+      data: {
+        chatMode: selectedMode,
+      },
+    });
+
+    setCharCount(0);
   };
 
   return (
     <div className="flex flex-col h-full w-full rounded-3xl glass-card overflow-hidden">
-      
-      <div className="sticky top-0 z-10 backdrop-blur-xl bg-card/80 border-b border-border px-5 py-4">
-        <h2 className="text-lg md:text-xl font-semibold text-card-foreground">
-          AI Assistant
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          Intelligent, fast, and context-aware responses.
-        </p>
+      <div className="sticky top-0 z-10 backdrop-blur-xl bg-card/80 border-b border-border">
+        {isDemo && (
+          <div className="bg-amber-500/10 border-b border-amber-500/20 px-5 py-2">
+            <p className="text-xs font-medium text-amber-700 dark:text-amber-500 flex items-center gap-2">
+              <AlertCircle className="w-3 h-3" />
+              Demo Mode: API quota exceeded. Using cached responses.
+            </p>
+          </div>
+        )}
+
+        {showQuotaWarning && rateLimitRemaining !== null && (
+          <div className="bg-orange-500/10 border-b border-orange-500/20 px-5 py-2">
+            <p className="text-xs font-medium text-orange-700 dark:text-orange-500 flex items-center gap-2">
+              <AlertCircle className="w-3 h-3" />
+              Only {rateLimitRemaining} requests remaining this minute
+            </p>
+          </div>
+        )}
+
+        <div className="px-5 py-4">
+          <h2 className="text-lg md:text-xl font-semibold text-card-foreground mb-3">
+            AI Assistant
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Intelligent, fast, and context-aware responses.
+          </p>
+
+          <div className="flex gap-2 overflow-x-auto pb-2 -mx-5 px-5">
+            {CHAT_MODES.map((mode) => (
+              <button
+                key={mode.value}
+                onClick={() => {
+                  setSelectedMode(mode.value);
+                  setShowModeSelector(false);
+                }}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs whitespace-nowrap transition-colors ${
+                  selectedMode === mode.value
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted hover:bg-muted/80 text-foreground"
+                }`}
+                title={mode.description}
+              >
+                {mode.icon}
+                <span className="hidden sm:inline">{mode.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       <ScrollArea className="flex-1 px-4 py-6">
         <div className="max-w-3xl mx-auto flex flex-col gap-6">
-          
           {messages.length === 0 && (
             <div className="text-center text-muted-foreground mt-10">
-              Start a conversation 👋
+              <div className="text-4xl mb-3">👋</div>
+              <p>Start a conversation</p>
+              <p className="text-xs mt-2">
+                Try asking something using the {selectedMode} mode
+              </p>
             </div>
           )}
 
-          {messages.map((m, index) => {
+          {error && (
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-destructive/10 border border-destructive/20">
+              <AlertCircle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-destructive">
+                  {error.message || "Failed to get response"}
+                </p>
+                {error.message?.includes("quota") && (
+                  <div className="mt-2 text-xs text-muted-foreground space-y-1">
+                    <p>
+                      The API quota has been exceeded. This typically happens with free tier plans.
+                    </p>
+                    <p>
+                      <a
+                        href="https://ai.google.dev/gemini-api/docs/rate-limits"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        Learn more about Gemini API quotas →
+                      </a>
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {messages.map((m) => {
             const isUser = m.role === "user";
-            const time = new Date().toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
+            const time = new Date(m.createdAt || Date.now()).toLocaleTimeString(
+              [],
+              {
+                hour: "2-digit",
+                minute: "2-digit",
+              }
+            );
 
             return (
               <div
@@ -87,42 +262,75 @@ export function ChatInterface({
               >
                 {!isUser && (
                   <Avatar className="w-9 h-9">
-                    <AvatarFallback className="bg-primary text-primary-foreground">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
                       AI
                     </AvatarFallback>
                   </Avatar>
                 )}
 
                 <div className="relative max-w-[85%] md:max-w-[70%]">
-                  
-                  <div
-                    className={`
+                  {/* Message Bubble */}
+                  <div className={`
                       px-4 py-3 rounded-2xl text-sm leading-relaxed
                       ${
                         isUser
-                          ? "bg-primary text-primary-foreground rounded-br-md"
-                          : "bg-muted text-foreground border border-border rounded-bl-md"
+                          ? "bg-primary text-primary-foreground rounded-br-md shadow-md"
+                          : "bg-muted text-foreground border border-border rounded-bl-md shadow-sm"
                       }
-                    `}
-                  >
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {m.content}
+                    `}>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code: ({ node, inline, children, ...props }: any) => (
+                          <code
+                            className={`${
+                              inline
+                                ? "bg-background/50 px-1.5 py-0.5 rounded text-xs"
+                                : "block bg-background/50 p-2 rounded mt-2 mb-2 overflow-x-auto"
+                            }`}
+                            {...props}
+                          >
+                            {children}
+                          </code>
+                        ),
+                        a: ({ node, href, children, ...props }: any) => (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:opacity-80"
+                            {...props}
+                          >
+                            {children}
+                          </a>
+                        ),
+                      }}
+                    >
+                      {m.content.replace(
+                        /\n\n\*\*\(This is a demo response[^)]*\)\*\*/,
+                        ""
+                      )}
                     </ReactMarkdown>
                   </div>
 
                   {!isUser && (
-                    <div className="opacity-0 group-hover:opacity-100 transition flex items-center gap-2 mt-2 ml-1">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center gap-2 mt-2 ml-1">
                       <button
                         onClick={() => handleCopy(m.id, m.content)}
-                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1 cursor-pointer"
+                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1 cursor-pointer transition-colors"
+                        title="Copy message"
                       >
                         <Copy className="w-3 h-3" />
-                        {copiedId === m.id ? "Copied" : "Copy"}
+                        {copiedId === m.id ? "Copied!" : "Copy"}
                       </button>
+
+                      <span className="text-muted-foreground/30">•</span>
 
                       <button
                         onClick={() => reload()}
-                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1 cursor-pointer"
+                        disabled={isLoading}
+                        className="text-muted-foreground hover:text-foreground text-xs flex items-center gap-1 cursor-pointer transition-colors disabled:opacity-50"
+                        title="Regenerate response"
                       >
                         <RefreshCcw className="w-3 h-3" />
                         Regenerate
@@ -137,9 +345,9 @@ export function ChatInterface({
 
                 {isUser && (
                   <Avatar className="w-9 h-9">
-                    <AvatarImage src={userImage || ""} />
-                    <AvatarFallback>
-                      {userName?.charAt(0) || "U"}
+                    <AvatarImage src={userImage || ""} alt={userName || ""} />
+                    <AvatarFallback className="text-xs font-bold">
+                      {userName?.charAt(0)?.toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
                 )}
@@ -148,17 +356,19 @@ export function ChatInterface({
           })}
 
           {isLoading && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 animate-in fade-in">
               <Avatar className="w-9 h-9">
-                <AvatarFallback className="bg-primary text-primary-foreground">
+                <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
                   AI
                 </AvatarFallback>
               </Avatar>
 
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted border border-border">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span className="text-sm text-muted-foreground">
-                  Thinking...
+              <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-muted border border-border shadow-sm">
+                <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                <span className="text-sm text-foreground font-medium">
+                  {selectedMode === "DEFAULT"
+                    ? "Thinking..."
+                    : `Responding in ${selectedMode.toLowerCase()} mode...`}
                 </span>
               </div>
             </div>
@@ -169,34 +379,38 @@ export function ChatInterface({
       </ScrollArea>
 
       <div className="border-t border-border bg-background/80 backdrop-blur-xl px-4 py-4">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!input.trim()) return;
-            handleSubmit(e);
-          }}
-          className="max-w-3xl mx-auto flex items-center gap-3"
-        >
-          <Input
-            value={input}
-            onChange={handleInputChange}
-            placeholder="Ask anything..."
-            className="flex-1 rounded-full px-4 h-11 bg-muted border-border focus-visible:ring-1 focus-visible:ring-ring"
-            disabled={isLoading}
-          />
+        <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
+          <div className="flex items-center gap-3">
+            <Input
+              value={input}
+              onChange={handleInputChangeWithCount}
+              placeholder={`Ask anything using ${selectedMode} mode...`}
+              className="flex-1 rounded-full px-4 h-11 bg-muted border-border focus-visible:ring-1 focus-visible:ring-ring"
+              disabled={isLoading}
+              maxLength={10000}
+              autoFocus
+            />
 
-          <Button
-            type="submit"
-            size="icon"
-            disabled={isLoading || !input.trim()}
-            className="rounded-full h-11 w-11 cursor-pointer"
-          >
-            {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <SendHorizontal className="w-4 h-4" />
-            )}
-          </Button>
+            <Button
+              type="submit"
+              size="icon"
+              disabled={isLoading || !input.trim()}
+              className="rounded-full h-11 w-11 cursor-pointer flex-shrink-0"
+              title={input.trim() ? "Send message" : "Type a message first"}
+            >
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <SendHorizontal className="w-4 h-4" />
+              )}
+            </Button>
+          </div>
+
+          {charCount > 0 && (
+            <div className="text-xs text-muted-foreground mt-2 text-right">
+              {charCount} / 10000
+            </div>
+          )}
         </form>
       </div>
     </div>

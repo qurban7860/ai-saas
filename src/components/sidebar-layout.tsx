@@ -42,7 +42,7 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
                 Conversations
               </h2>
 
-              <Button className="w-full" size="sm">
+              <Button className="w-full cursor-pointer" size="sm">
                 <Plus className="w-4 h-4 mr-2" />
                 New Chat
               </Button>
