@@ -83,7 +83,7 @@ src/
    ```env
    DATABASE_URL="postgresql://..."
    NEXTAUTH_SECRET="your-secret"
-   NEXTAUTH_URL="http://localhost:3000"
+   BASE_URL="http://localhost:3000"
    GOOGLE_CLIENT_ID="..."
    GOOGLE_CLIENT_SECRET="..."
    OPENAI_API_KEY="..."
@@ -100,7 +100,7 @@ src/
    npm run dev
    ```
 
-   Open [http://localhost:3000](http://localhost:3000) to view the application.
+   Open [https://ai-saas-i8u8-dusky.vercel.app](https://ai-saas-i8u8-dusky.vercel.app) to view the application.
 
 ## 📱 Pages & Features
 
