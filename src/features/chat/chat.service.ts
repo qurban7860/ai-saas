@@ -54,6 +54,8 @@ export class ChatService {
       this.validateInputs(sessionId, userId, userMessage);
       const sanitizedMessage = sanitizeMessage(userMessage);
       await ChatRepository.addMessage(sessionId, "user", sanitizedMessage);
+      this.clearSessionCache(sessionId);
+
       const history = await this.getConversationContext(sessionId, userId);
 
       if (!history) {
@@ -146,6 +148,7 @@ export class ChatService {
     isDemo: boolean = false
   ): Response {
     let fullResponse = "";
+    const self = this;
 
     const transformStream = new TransformStream({
       async transform(chunk, controller) {
@@ -169,6 +172,7 @@ export class ChatService {
               fullResponse +
                 (isDemo ? "\n\n**(This is a demo response - API quota exceeded)**" : "")
             );
+            self.clearSessionCache(sessionId);
           }
         } catch (error) {
           console.error("Error saving response:", error);
