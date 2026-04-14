@@ -122,7 +122,7 @@ export default function ChatPage() {
                 <p className="text-muted-foreground mb-8 text-lg">
                   Start a new conversation or select one from the sidebar.
                 </p>
-                <Button onClick={handleNewChat} className="gap-2 text-base px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all w-full sm:w-auto">
+                <Button onClick={handleNewChat} className="gap-2 text-base px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all w-full sm:w-auto cursor-pointer">
                   <Plus className="w-5 h-5" />
                   <span>Start a New Conversation</span>
                 </Button>

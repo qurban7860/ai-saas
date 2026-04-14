@@ -36,37 +36,46 @@ const ChatSessionItem = ({
   };
 
   return (
-    <button
-      onClick={() => onSelect(chat.id)}
-      className={`w-full p-3 rounded-lg text-left transition-all hover:bg-accent relative group flex flex-col gap-1 cursor-pointer
-        ${isActive ? 'bg-primary/10 border-r-2 border-primary text-primary font-medium' : 'hover:bg-accent/70'}`}
-    >
-      <div className="flex items-start justify-between w-full">
-        <div className="flex-1 min-w-0 pr-6">
-          <p className="font-medium truncate text-sm leading-tight">
-            {chat.title !== 'New Chat' ? chat.title : chat.preview || 'New Chat'}
-          </p>
-        </div>
-        <div className="text-xs text-muted-foreground ml-2 flex-shrink-0 bg-secondary/50 px-1.5 py-0.5 rounded-full">
-          {chat.messageCount}
-        </div>
-      </div>
-      <p className="text-xs text-muted-foreground truncate w-full">
-        {formatTime(chat.updatedAt)}
-      </p>
-      
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onDelete(chat.id, e);
+
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => onSelect(chat.id)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSelect(chat.id);
+          }
         }}
-        className="opacity-0 group-hover:opacity-100 absolute right-2 top-2.5 p-1.5 rounded-full hover:bg-destructive hover:text-destructive-foreground text-muted-foreground transition-all duration-200 cursor-pointer"
-        title="Delete conversation"
-        aria-label="Delete chat"
+        className={`w-full p-3 rounded-lg text-left transition-all hover:bg-accent relative group flex flex-col gap-1 cursor-pointer
+          ${isActive ? 'bg-primary/10 border-r-2 border-primary text-primary font-medium' : 'hover:bg-accent/70'}`}
       >
-        <Trash2 className="w-3.5 h-3.5" />
-      </button>
-    </button>
+        <div className="flex items-start justify-between w-full">
+          <div className="flex-1 min-w-0 pr-6">
+            <p className="font-medium truncate text-sm leading-tight">
+              {chat.title !== 'New Chat' ? chat.title : chat.preview || 'New Chat'}
+            </p>
+          </div>
+          <div className="text-xs text-muted-foreground ml-2 flex-shrink-0 bg-secondary/50 px-1.5 py-0.5 rounded-full">
+            {chat.messageCount}
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground truncate w-full">
+          {formatTime(chat.updatedAt)}
+        </p>
+        
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(chat.id, e);
+          }}
+          className="opacity-0 group-hover:opacity-100 absolute right-2 top-2.5 p-1.5 rounded-full hover:bg-destructive hover:text-destructive-foreground text-muted-foreground transition-all duration-200 cursor-pointer"
+          title="Delete conversation"
+          aria-label="Delete chat"
+        >
+          <Trash2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
   );
 };
 

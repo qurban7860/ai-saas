@@ -5,18 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  SendHorizontal,
-  Loader2,
-  Copy,
-  RefreshCcw,
-  AlertCircle,
-  Zap,
-  Brain,
-  BookOpen,
-  Lightbulb,
-  ArrowDown,
-} from "lucide-react";
+import { SendHorizontal, Loader2, Copy, RefreshCcw, AlertCircle, Zap, Brain, BookOpen, Lightbulb, ArrowDown } from "lucide-react";
 import { useRef, useEffect, useState, useCallback } from "react";
 import type { Message } from "@ai-sdk/react";
 import ReactMarkdown from "react-markdown";
@@ -140,7 +129,6 @@ export function ChatInterface({
   return (
     <div className="flex flex-col h-full w-full rounded-3xl glass-card overflow-hidden">
       <div className="sticky top-0 z-10 backdrop-blur-xl bg-card/80 border-b border-border">
-        {/* Warning Banners Omitted for brevity, keep your existing ones here */}
         {isDemo && (
           <div className="bg-amber-500/10 border-b border-amber-500/20 px-5 py-2">
             <p className="text-xs font-medium text-amber-700 dark:text-amber-500 flex items-center gap-2">
@@ -178,7 +166,6 @@ export function ChatInterface({
         </div>
       </div>
 
-      {/* Main Chat Area wrapped to track manual scrolling */}
       <div 
         className="flex-1 relative overflow-hidden min-h-0"
         onWheel={() => setIsAutoScrolling(false)}
@@ -254,8 +241,8 @@ export function ChatInterface({
 
                   {isUser && (
                     <Avatar className="w-9 h-9">
-                      <AvatarImage src={userImage || ""} alt={userName || ""} />
-                      <AvatarFallback className="text-xs font-bold">{userName?.charAt(0)?.toUpperCase() || "U"}</AvatarFallback>
+                      <AvatarImage src={userImage || ""} alt={userName || ""} referrerPolicy="no-referrer" />
+                      <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">{userName?.charAt(0)?.toUpperCase() || "U"}</AvatarFallback>
                     </Avatar>
                   )}
                 </div>

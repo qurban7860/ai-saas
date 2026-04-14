@@ -47,9 +47,9 @@ export function Header() {
             <div className="w-8 h-8 bg-muted rounded-full animate-pulse" />
           ) : session ? (
             <div className="flex items-center gap-3">
-              {session?.user?.image && (
+              {/* {session?.user?.image && ( */}
                 <Avatar className="w-8 h-8 border border-border transition-transform hover:scale-105">
-                  <AvatarImage src={session?.user?.image || ""} />
+                  <AvatarImage src={session?.user?.image || ""} referrerPolicy="no-referrer" />
 
                   <AvatarFallback className="bg-primary text-primary-foreground text-xs font-medium">
                     {(session?.user?.name || session?.user?.email || "U")
@@ -60,7 +60,7 @@ export function Header() {
                       .toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-              )}
+              {/* )} */}
 
               <div className="flex-col leading-tight hidden sm:flex">
                 <span className="text-sm font-medium text-foreground">
