@@ -5,13 +5,8 @@ import prisma from "@/lib/prisma";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-const authSecret =
-  process.env.AUTH_SECRET ??
-  process.env.NEXTAUTH_SECRET ??
-  process.env.SECRET ??
-  (process.env.NODE_ENV !== "production" ? "dev-secret" : undefined);
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: process.env.AUTH_SECRET!,
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
@@ -43,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  secret: authSecret,
+
   pages: {
     signIn: "/login",
   },

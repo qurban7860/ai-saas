@@ -1,22 +1,4 @@
-import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
-
-const authSecret =
-  process.env.AUTH_SECRET ??
-  process.env.NEXTAUTH_SECRET ??
-  process.env.SECRET ??
-  (process.env.NODE_ENV !== "production" ? "dev-secret" : undefined);
-
-const { auth } = NextAuth({
-  providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-  ],
-  secret: authSecret,
-  session: { strategy: "jwt" },
-});
+import { auth } from "@/auth";
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
