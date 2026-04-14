@@ -145,7 +145,7 @@ export function ChatInterface({
           </div>
         )}
 
-        <div className="px-5 py-4">
+        <div className="px-5 py-4 lg:pl-16 transition-[padding] duration-300 ease-in-out">
           <h2 className="text-lg md:text-xl font-semibold text-card-foreground mb-3">AI Assistant</h2>
           <p className="text-sm text-muted-foreground mb-3">Intelligent, fast, and context-aware responses.</p>
           <div className="flex gap-2 overflow-x-auto pb-2 -mx-5 px-5">
@@ -267,7 +267,6 @@ export function ChatInterface({
           </div>
         </ScrollArea>
 
-        {/* Floating "Scroll to Bottom" Button */}
         {!isAutoScrolling && messages.length > 0 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 animate-in fade-in slide-in-from-bottom-2">
             <Button
