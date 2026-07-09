@@ -158,10 +158,6 @@ npm run start
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🙏 Acknowledgments
 
 - [Next.js](https://nextjs.org/) - The React framework
