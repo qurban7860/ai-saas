@@ -168,7 +168,7 @@ export function SidebarLayout({ children }: { children?: React.ReactNode }) {
                   <h2 className="text-lg font-semibold tracking-tight truncate">Conversations</h2>
                   <div className="flex items-center gap-1">
                     <Tooltip>
-                      <TooltipTrigger>
+                      <TooltipTrigger render={<span />}>
                         <Button 
                           variant="ghost" 
                           size="icon" 
@@ -221,7 +221,7 @@ export function SidebarLayout({ children }: { children?: React.ReactNode }) {
           <main className="flex-1 min-w-0 h-full overflow-hidden flex flex-col relative bg-background/50">
             <div className={`hidden lg:flex absolute left-4 top-4 z-40 transition-opacity duration-300 ${isCollapsed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger render={<span />}>
                   <Button 
                     variant="outline" 
                     size="icon" 
