@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
+    "generate-assets": "node scripts/generate-assets.mjs",
+    "generate-assets:install": "playwright install chromium",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -49,6 +51,7 @@
     "dotenv": "^17.4.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
+    "playwright": "^1.61.1",
     "prisma": "^5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"

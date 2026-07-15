@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI SaaS Platform - Enterprise Showcase</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+@page{size:A4 landscape;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;margin:0;background:#08090f;color:#F8FAFC;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+.pdf-page{width:297mm;min-height:210mm;max-height:210mm;padding:12mm 18mm;display:flex;flex-direction:column;page-break-after:always;break-after:page;overflow:hidden;position:relative;background:#08090f;background-image:radial-gradient(at 0% 0%,rgba(99,102,241,.09) 0px,transparent 55%),radial-gradient(at 100% 0%,rgba(167,139,250,.07) 0px,transparent 55%),radial-gradient(at 50% 100%,rgba(56,189,248,.05) 0px,transparent 55%)}
+.page-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:8px;margin-bottom:12px;flex-shrink:0}
+.header-brand{display:flex;align-items:center;gap:10px}
+.header-logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);text-align:center;line-height:34px;font-weight:900;font-size:13px;color:#fff;flex-shrink:0}
+.page-header h1{margin:0;font-size:17px;font-weight:900;letter-spacing:-.03em;background:linear-gradient(90deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-subtitle{margin:0;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b}
+.header-layer{text-align:right}
+.layer-label{display:block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#38bdf8}
+.layer-title{font-size:11px;font-weight:700;color:#94a3b8}
+.slide-card{flex:1;background:rgba(30,41,59,.28);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;overflow:hidden;box-shadow:0 24px 48px -12px rgba(0,0,0,.65)}
+.img-wrapper{border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.5);background:#020617;aspect-ratio:16/9}
+.img-wrapper img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.slide-info{width:220px;flex-shrink:0;padding-top:4px}
+.slide-info h2{margin:0 0 6px;font-size:15px;font-weight:800;color:#f1f5f9;line-height:1.2}
+.slide-info p{margin:0 0 12px;font-size:11px;line-height:1.55;color:#94a3b8}
+.slide-pills{display:flex;flex-wrap:wrap;gap:5px}
+.pill{padding:2px 8px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.pill-blue{background:rgba(56,189,248,.12);color:#38bdf8;border:1px solid rgba(56,189,248,.25)}
+.pill-purple{background:rgba(167,139,250,.12);color:#a78bfa;border:1px solid rgba(167,139,250,.25)}
+.pill-indigo{background:rgba(99,102,241,.12);color:#818cf8;border:1px solid rgba(99,102,241,.25)}
+.pill-green{background:rgba(16,185,129,.12);color:#34d399;border:1px solid rgba(16,185,129,.25)}
+.pill-orange{background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.25)}
+.page-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.06);padding-top:7px;margin-top:10px;font-size:10px;color:#475569;flex-shrink:0}
+.exec-body{flex:1;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.exec-lead p{margin:0 0 8px;font-size:12.5px;line-height:1.58;color:#cbd5e1}
+.exec-lead strong{color:#f8fafc}
+.exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:rgba(15,23,42,.6);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px 18px}
+.exec-col h3{margin:0 0 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#38bdf8}
+.check-list,.bullet-list{list-style:none;padding:0;margin:0}
+.check-list li,.bullet-list li{font-size:11px;color:#94a3b8;margin-bottom:7px;line-height:1.4;padding-left:16px;position:relative}
+.check-list li::before{content:'✔';position:absolute;left:0;color:#10b981;font-size:10px;font-weight:700}
+.bullet-list li::before{content:'•';position:absolute;left:0;color:#a78bfa;font-size:14px;line-height:.85}
+.exec-closing{background:linear-gradient(90deg,rgba(56,189,248,.08),rgba(167,139,250,.08));border-left:3px solid #38bdf8;padding:12px 14px;font-size:12px;font-weight:500;color:#e2e8f0;line-height:1.6;border-radius:0 8px 8px 0}
+</style>
+</head>
+<body>
+
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 01</span>
+          <span class="layer-title">Landing Hero</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/01-landing-hero.png" alt="Landing Hero" /></div>
+        <div class="slide-info">
+          <h2>Landing Hero</h2>
+          <p>Primary hero CTA — AI-powered SaaS platform with real-time streaming chat, secure auth, and beautiful premium dashboard experience.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 1 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 02</span>
+          <span class="layer-title">Feature Grid</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/02-landing-features.png" alt="Feature Grid" /></div>
+        <div class="slide-info">
+          <h2>Feature Grid</h2>
+          <p>Six-module feature matrix: Advanced AI Models, Lightning Fast responses, Secure & Private auth, Real-time Chat, Conversation Management, and Multi-session Support.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 2 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 03</span>
+          <span class="layer-title">Pricing Tiers</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/03-landing-pricing.png" alt="Pricing Tiers" /></div>
+        <div class="slide-info">
+          <h2>Pricing Tiers</h2>
+          <p>Transparent SaaS tier architecture: Free ($0/mo), Pro ($19/mo) with unlimited chats & advanced AI, and Enterprise (custom) with dedicated SLA & on-premise deployment.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 3 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 04</span>
+          <span class="layer-title">Login Page</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/04-login-page.png" alt="Login Page" /></div>
+        <div class="slide-info">
+          <h2>Login Page</h2>
+          <p>Glassmorphism login UI with credentials & Google OAuth. Secure NextAuth v5 session management with JWT tokens and encrypted cookie storage.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 4 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 05</span>
+          <span class="layer-title">Chat Dashboard — Empty State</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/05-chat-empty-state.png" alt="Chat Dashboard — Empty State" /></div>
+        <div class="slide-info">
+          <h2>Chat Dashboard — Empty State</h2>
+          <p>Authenticated chat workspace: collapsible conversation sidebar, "Start a New Conversation" CTA, and glassmorphism layout with dark gradient background.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 5 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 06</span>
+          <span class="layer-title">AI Chat 1 — Prompt</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/06-chat-1-prompt.png" alt="AI Chat 1 — Prompt" /></div>
+        <div class="slide-info">
+          <h2>AI Chat 1 — Prompt</h2>
+          <p>User sends: "What are the main benefits of using AI in modern SaaS applications?" — real-time streaming chat interface with markdown-rendered responses.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 6 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 07</span>
+          <span class="layer-title">AI Chat 1 — AI Response</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/07-chat-1-response.png" alt="AI Chat 1 — AI Response" /></div>
+        <div class="slide-info">
+          <h2>AI Chat 1 — AI Response</h2>
+          <p>Streaming AI response with full markdown rendering, code highlighting and automatic sidebar session title update.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 7 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 08</span>
+          <span class="layer-title">AI Chat 2 — Prompt</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/08-chat-2-prompt.png" alt="AI Chat 2 — Prompt" /></div>
+        <div class="slide-info">
+          <h2>AI Chat 2 — Prompt</h2>
+          <p>User sends: "Can you help me write a short professional bio for a software engineer portfolio?" — real-time streaming chat interface with markdown-rendered responses.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 8 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 09</span>
+          <span class="layer-title">AI Chat 2 — AI Response</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/09-chat-2-response.png" alt="AI Chat 2 — AI Response" /></div>
+        <div class="slide-info">
+          <h2>AI Chat 2 — AI Response</h2>
+          <p>Streaming AI response with full markdown rendering, code highlighting and automatic sidebar session title update.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 9 of 11</span>
+      </div>
+    </div>
+    <div class="pdf-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 10</span>
+          <span class="layer-title">Chat — Conversation History</span>
+        </div>
+      </div>
+      <section class="slide-card">
+        <div class="img-wrapper"><img src="./screenshots/10-chat-with-history.png" alt="Chat — Conversation History" /></div>
+        <div class="slide-info">
+          <h2>Chat — Conversation History</h2>
+          <p>Sidebar populated with completed AI sessions after interactions — demonstrating multi-session management with titles derived from conversation context.</p>
+          <div class="slide-pills">
+            <span class="pill pill-blue">Next.js 16</span>
+            <span class="pill pill-purple">React 19</span>
+            <span class="pill pill-indigo">TypeScript</span>
+            <span class="pill pill-green">AI SDK</span>
+            <span class="pill pill-orange">Tailwind CSS</span>
+          </div>
+        </div>
+      </section>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 10 of 11</span>
+      </div>
+    </div>
+
+    <div class="pdf-page exec-page">
+      <div class="page-header">
+        <div class="header-brand">
+          <span class="header-logo">AI</span>
+          <div>
+            <h1>AI SaaS Platform</h1>
+            <p class="header-subtitle">Enterprise Platform Showcase</p>
+          </div>
+        </div>
+        <div class="header-layer">
+          <span class="layer-label">Layer 11</span>
+          <span class="layer-title">Architect Overview</span>
+        </div>
+      </div>
+      <div class="exec-body">
+        <div class="exec-lead">
+          <p>I help startups, businesses, and founders build <strong>scalable SaaS platforms</strong>, AI-powered applications, enterprise software, and modern web products — shipped at production quality from day one.</p>
+          <p>With <strong>3+ years</strong> as a Full Stack Software Engineer, I specialise in React, Next.js, Angular, TypeScript, Node.js, NestJS, PostgreSQL, MongoDB, and modern cloud technologies.</p>
+        </div>
+        <div class="exec-grid">
+          <div class="exec-col">
+            <h3>Core Expertise</h3>
+            <ul class="check-list">
+              <li>Full Stack Development (React, Next.js, Node.js, NestJS)</li>
+              <li>SaaS Product Development &amp; Multi-Tenant Architecture</li>
+              <li>AI Applications, LLM Integrations &amp; RAG Systems</li>
+              <li>Enterprise Software &amp; Business Platforms</li>
+              <li>REST APIs, WebSockets &amp; Backend Engineering</li>
+              <li>PostgreSQL, MongoDB, Prisma &amp; Database Design</li>
+              <li>Workflow Automation &amp; Business Process Solutions</li>
+              <li>Performance Optimisation &amp; Scalable Architecture</li>
+            </ul>
+          </div>
+          <div class="exec-col">
+            <h3>AI SaaS Platform Highlights</h3>
+            <ul class="bullet-list">
+              <li>Real-time AI chat with streaming responses via AI SDK</li>
+              <li>Multi-session conversation management with sidebar history</li>
+              <li>Secure authentication (NextAuth v5, credentials + Google OAuth)</li>
+              <li>Prisma ORM with SQLite (dev) / PostgreSQL (prod) support</li>
+              <li>Responsive glassmorphism UI with dark mode &amp; micro-animations</li>
+              <li>Server Actions for type-safe, form-validated data mutations</li>
+              <li>TanStack Query for intelligent client-side caching &amp; sync</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exec-closing">
+          Whether you need an MVP, SaaS platform, AI-powered product, CRM, internal business tool, or a complete full-stack application — I can help turn your idea into a secure, scalable, production-ready solution.
+        </div>
+      </div>
+      <div class="page-footer">
+        <span>Confidential Technical Showcase &middot; AI SaaS Platform</span>
+        <span>Page 11 of 11</span>
+      </div>
+    </div>
+</body>
+</html>
