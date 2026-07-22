@@ -62,29 +62,6 @@ The script captures the following scenes in order:
 
 ---
 
-## 🔐 Credentials
-
-The pipeline logs in automatically using:
-
-```
-Email:    user123@gmail.co
-Password: User@123
-```
-
-To change credentials, edit the `CREDENTIALS` object at the top of `generate-assets.mjs`.
-
-### How Login Works (Zero-Ripple Bypass)
-
-The script uses a **Zero-Ripple JWT Injection** instead of the React `signIn()` button or Next.js API route. This completely avoids all headless browser CSRF issues and `CredentialsSignin` errors:
-
-1. Connects locally to your Prisma database.
-2. Finds the user `user123@gmail.co` (or falls back to the first user if not found).
-3. Mints a valid NextAuth v5 session JWT locally using `@auth/core/jwt` and your `.env` `AUTH_SECRET`.
-4. Injects the `authjs.session-token` cookie directly into the Playwright browser context.
-5. Navigates directly to `/chat` completely authenticated.
-
----
-
 ## 📂 Output Structure
 
 ```
