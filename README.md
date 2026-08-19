@@ -135,7 +135,6 @@ src/
 ### Code Quality
 - **ESLint**: Configured for React/Next.js best practices
 - **TypeScript**: Strict type checking enabled
-- **Prettier**: Code formatting (via ESLint)
 
 ## 🚀 Deployment
 
