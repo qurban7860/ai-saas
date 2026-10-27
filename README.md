@@ -35,7 +35,7 @@ A modern, full-stack AI-powered SaaS application built with Next.js, featuring r
 - **Authentication**: NextAuth.js with Google OAuth
 - **Database**: PostgreSQL with Prisma ORM
 - **AI Integration**: OpenAI API for chat responses
-- **Deployment**: Vercel ready configuration & deployment
+- **Deployment**: Vercel ready configuration and deployment
 
 ## 📁 Project Structure
 
